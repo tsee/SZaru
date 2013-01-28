@@ -1,0 +1,5 @@
+%typemap{std::string};
+%typemap{const std::string};
+%typemap{int64_t};
+%typemap{uint64_t};
+%typemap{size_t};

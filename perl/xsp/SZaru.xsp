@@ -1,0 +1,27 @@
+#include "myxshead.h"
+
+%module{Math::SZaru};
+
+%name{Math::SZaru::UniqueEstimator}
+class UniqueEstimator {
+
+  // FIXME this order of type/keyword/decorator simply must be a bug in XS++
+  static
+  %name{new}
+  UniqueEstimator*
+  Create(const char *CLASS, int nElemes)
+    %code{%
+      RETVAL = UniqueEstimator::Create(nElemes);
+    %};
+
+  // Redundant interface
+  //virtual void AddElem(const std::string& elm);
+
+  %name{AddElem} virtual void AddElemInCIF(const char *data, size_t %length{data});
+  virtual int64_t Estimate() const;
+  virtual uint64_t TotElems() const;
+  ~UniqueEstimator();
+};
+
+
+
