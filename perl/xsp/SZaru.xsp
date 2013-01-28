@@ -17,9 +17,9 @@ class UniqueEstimator {
   // Redundant interface
   //virtual void AddElem(const std::string& elm);
 
-  %name{AddElem} virtual void AddElemInCIF(const char *data, size_t %length{data});
-  virtual int64_t Estimate() const;
-  virtual uint64_t TotElems() const;
+  %name{add_elem} virtual void AddElemInCIF(const char *data, size_t %length{data});
+  %name{estimate} virtual int64_t Estimate() const;
+  %name{tot_elems} virtual uint64_t TotElems() const;
   ~UniqueEstimator();
 };
 
