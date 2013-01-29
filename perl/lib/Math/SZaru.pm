@@ -15,13 +15,40 @@ __END__
 
 Math::SZaru - Perl wrapper for the SZaru C++ library
 
+=head1 SYNOPSIS
+
+  use Math::SZaru;
+  # loads Math::SZaru::UniqueEstimator
+  # and Math::SZaru::TopEstimator
+  # and Math::SZaru::QuantileEstimator
+
 =head1 DESCRIPTION
 
-TODO
+SZaru is a stand-alone C++ library that extracts some of the
+aggregator functionality of Google's Sawzall library or more
+specifically, the Open Source I<szl> implementation.
+C<Math::SZaru> is a Perl/XS wrapper of SZaru and comes with
+a complete copy of the C++ code to build without system-library
+dependencies.
+
+The one unifying aspect of the implemented aggregators is that
+they work with a single pass and with bounded memory overhead.
+In CS terms, they should have near C<O(n)> compute complexity
+and C<O(1)> or at least sub-linear memory overhead. The algorithms
+may trade accuracy (hence I<*Estimator>) for this goal and are
+intended for use with large and/or streaming data sets that
+either do not fit in memory or whose total size is unknown.
+
+The functionality is currently divided between three classes:
+L<Math::SZaru::UniqueEstimator>, L<Math::SZaru::TopEstimator>,
+and L<Math::SZaru::QuantileEstimator>. For details on those,
+please refer to their respective documentation.
 
 =head1 SEE ALSO
 
-L<llamerada.github.com/SZaru/>
+SZaru: L<llamerada.github.com/SZaru/>
+
+Sawzall: L<http://code.google.com/p/szl/>
 
 =head1 AUTHOR
 
