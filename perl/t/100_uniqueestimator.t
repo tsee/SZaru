@@ -11,8 +11,7 @@ SCOPE: {
   is($e->tot_elems(), 0, "tot_elems on empty set");
 
   $e->add_elem("foo");
-  $e->add_elem("bar");
-  $e->add_elem("baz");
+  $e->add_elems(qw(bar baz));
   $e->add_elem("baz");
   is($e->estimate(), 3, "estimate on smaller-than-exact-storage set");
   is($e->tot_elems(), 4, "tot_elems on smaller-than-exact-storage set");
