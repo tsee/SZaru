@@ -26,6 +26,7 @@ class UniqueEstimator {
 %name{Math::SZaru::TopEstimator}
 class PTopEstimator {
   ~PTopEstimator();
+  PTopEstimator(uint64_t numTops);
   void add_elem(const std::string& elm);
   void add_weighted_elem(const std::string& elem, double weight);
   uint64_t tot_elems();
@@ -33,6 +34,7 @@ class PTopEstimator {
   AV *
   estimate()
     %code{%
+      RETVAL = newAV();
       sv_2mortal((SV *)RETVAL);
       std::vector< SZaru::TopEstimator<double>::Elem > v;
       THIS->estimate(v);
