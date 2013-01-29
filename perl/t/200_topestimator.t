@@ -13,8 +13,7 @@ SCOPE: {
 
   $e->add_elem("foo");
   $e->add_elem("bar");
-  $e->add_elem("bar");
-  $e->add_elem("baz");
+  $e->add_elems(qw(bar baz));
   $e->add_elem("baz");
   $e->add_elem("baz");
   is_deeply($e->estimate(), [[baz => 3,], [bar => 2], [foo => 1]], "estimate on smaller-than-exact-storage set");
@@ -26,10 +25,12 @@ SCOPE: {
 
   $e = Math::SZaru::TopEstimator->new(100);
   isa_ok($e, 'Math::SZaru::TopEstimator');
+  $e->add_weighted_elems(1000, 3, 100, 1, 20, 3, "foo", 1);
   for my $x (1..500) {
     $e->add_weighted_elem($x, $x);
-    $e->add_elem($x) for 1..int(sqrt($x));
+    $e->add_elem($x) for 1..20;
   }
+  is($e->tot_elems(), 4 + 500 + 500 * 20);
   is($e->estimate()->[0][0], 500);
 }
 

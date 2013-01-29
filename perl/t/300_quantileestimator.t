@@ -10,7 +10,8 @@ SCOPE: {
 
   is_deeply($e->estimate(), [0], "estimate on empty set");
   is($e->tot_elems(), 0, "tot_elems on empty set");
-  $e->add_elem($_) for 1..100;
+  $e->add_elem($_) for 1..50;
+  $e->add_elems(51..100);
   is_deeply($e->estimate(), [1..100]);
 }
 
