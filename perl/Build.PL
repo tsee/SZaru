@@ -18,7 +18,7 @@ my $build = Module::Build::WithXSpp->new(
     'Capture::Tiny' => 0,
     'File::Find' => 0,
   },
-  extra_compiler_flags => [qw(-Ipublic -I.)],
+  extra_compiler_flags => [qw(-Isrc -Ipublic -I.)],
   extra_linker_flags => [qw(-lcrypto)],
   extra_typemap_modules => {
     'ExtUtils::Typemaps::Default' => '0.01',
@@ -28,7 +28,7 @@ my $build = Module::Build::WithXSpp->new(
     "myinit.h"
     "szaru.h"
   )],
-  cpp_source_dirs  => [qw(src src/public)],
+  cpp_source_dirs  => [],
   cpp_source_files => [map "src/$_", qw(emitters/szlunique.cc emitters/top.cc emitters/quantile.cc utilities/hashutils.cc)],
 );
 
