@@ -90,7 +90,7 @@ add_weighted_elems(PTopEstimator *THIS, ...)
       THIS->add_weighted_elem(std::string(str, len), SvNV(ST(i+1)));
     }
 %}
-};
+}; // End of TopEstimator
 
 
 %name{Math::SZaru::QuantileEstimator}
@@ -113,5 +113,6 @@ add_elems(PQuantileEstimator *THIS, ...)
       THIS->add_elem(SvNV(ST(i)));
     }
 %}
-};
+
+}; // End of QuantileEstimator
 
