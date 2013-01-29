@@ -30,7 +30,7 @@ add_elems(UniqueEstimator *THIS, ...)
   CODE:
     char *str;
     STRLEN len;
-    for (unsigned int i = 0; i < items; ++i) {
+    for (unsigned int i = 1; i < items; ++i) {
       str = SvPV(ST(i), len);
       THIS->AddElem(std::string(str, len));
     }
