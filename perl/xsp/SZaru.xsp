@@ -23,5 +23,40 @@ class UniqueEstimator {
   ~UniqueEstimator();
 };
 
+%name{Math::SZaru::TopEstimator}
+class PTopEstimator {
+  ~PTopEstimator();
+  void add_elem(const std::string& elm);
+  void add_weighted_elem(const std::string& elem, double weight);
+  uint64_t tot_elems();
 
+  AV *
+  estimate()
+    %code{%
+      sv_2mortal((SV *)RETVAL);
+      std::vector< SZaru::TopEstimator<double>::Elem > v;
+      THIS->estimate(v);
+      av_extend(RETVAL, v.size()-1);
+      for (unsigned int i = 0; i < v.size(); ++i) {
+        AV *iav = newAV();
+        const std::string &str = v[i].value;
+        av_store(iav, 0, newSVpvn(str.c_str(), str.length()));
+        av_store(iav, 1, newSVnv(v[i].weight));
+        av_store(RETVAL, i, newRV_noinc((SV *)iav));
+      }
+    %};
+};
+
+
+%name{Math::SZaru::QuantileEstimator}
+class PQuantileEstimator {
+  ~PQuantileEstimator();
+  PQuantileEstimator(uint32_t numQuantiles);
+  void add_elem(const double elm);
+  uint64_t tot_elems();
+
+  std::vector<double>
+  estimate()
+    %code{% THIS->estimate(RETVAL); %};
+};
 
