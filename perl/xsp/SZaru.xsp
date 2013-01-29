@@ -15,13 +15,30 @@ class UniqueEstimator {
     %};
 
   // Redundant interface
-  //virtual void AddElem(const std::string& elm);
+  // %name{add_elem} virtual void AddElemInCIF(const char *data, size_t %length{data});
 
-  %name{add_elem} virtual void AddElemInCIF(const char *data, size_t %length{data});
+  %name{add_elem} virtual void AddElem(const std::string& elm);
+
   %name{estimate} virtual int64_t Estimate() const;
   %name{tot_elems} virtual uint64_t TotElems() const;
   ~UniqueEstimator();
-};
+
+// Pure XS implementation of multi-element add for performance
+{%
+void
+add_elems(UniqueEstimator *THIS, ...)
+  CODE:
+    char *str;
+    STRLEN len;
+    for (unsigned int i = 0; i < items; ++i) {
+      str = SvPV(ST(i), len);
+      THIS->AddElem(std::string(str, len));
+    }
+%}
+
+}; // End of UniqueEstimator
+
+
 
 %name{Math::SZaru::TopEstimator}
 class PTopEstimator {
