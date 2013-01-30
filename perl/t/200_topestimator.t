@@ -3,6 +3,7 @@ use warnings;
 
 use Test::More;
 use Math::SZaru;
+use Math::SZaru::TopEstimator;
 
 SCOPE: {
   my $e = Math::SZaru::TopEstimator->new(1000);

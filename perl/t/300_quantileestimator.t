@@ -3,6 +3,7 @@ use warnings;
 
 use Test::More;
 use Math::SZaru;
+use Math::SZaru::QuantileEstimator;
 
 SCOPE: {
   my $e = Math::SZaru::QuantileEstimator->new(100);
