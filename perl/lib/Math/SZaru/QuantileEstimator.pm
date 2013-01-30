@@ -54,7 +54,7 @@ added to the estimator.
 
 =head2 estimate
 
-Returns the estimated quantiles in a raference to an array
+Returns the estimated quantiles in a reference to an array
 as described in the C<new> documentation above.
 
 =head1 SEE ALSO
