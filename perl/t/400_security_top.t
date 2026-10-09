@@ -75,7 +75,7 @@ SCOPE: {
     my $e = Math::SZaru::TopEstimator->new(20);
     my %w;
     for my $i (1..20000) { $e->add_elem("k" . ($i % 5000)); }
-    $e->add_weighted_elem("winner$_", 100000 + $_) for 1..5;
+    $e->add_weighted_elem("winner$_", 100000 * $_) for 1..5;
     for my $i (1..20000) { $e->add_elem("z$i"); }
     my $est = $e->estimate();
     return join("|", map { $_->[0] } @$est[0..4]);

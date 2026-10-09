@@ -211,7 +211,7 @@ void SzlSketch<Value>::Estimate(Index* index, Value* est) {
 //   }
   
   nth_element(values, mid, last);
-  est = mid;
+  *est = *mid;
 }
 
 // Compute the estimated standard deviation of values in the sketch.
