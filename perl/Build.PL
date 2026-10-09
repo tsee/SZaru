@@ -53,6 +53,7 @@ SCOPE: {
 
 # Sue me
 for (qw(ppport.h myinit.h myxshead.h)) {
+  unlink("src/$_") if -e "src/$_";
   copy($_, "src");
   $build->add_to_cleanup("src/$_");
 }
@@ -105,6 +106,7 @@ sub define_config {
 
   (my $hash_set_class = $name) =~ s/map/set/g;
 
+  unlink "src/myconfig.h" if -e "src/myconfig.h";
   open my $fh, ">", "src/myconfig.h" or die $!;
   print $fh <<'HERE';
 #ifndef SZARU_XS_MYDEFINES_H_
