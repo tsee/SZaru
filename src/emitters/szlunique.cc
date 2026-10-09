@@ -102,6 +102,8 @@ private:
 
 UniqueEstimator *
 UniqueEstimator::Create(int maxElems) {
+  if (maxElems <= 0 || maxElems > 10000000)
+    return NULL;
   return new UniqueEstimatorImpl(maxElems);
 }
 
