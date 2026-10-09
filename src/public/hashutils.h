@@ -126,8 +126,9 @@ inline uint64 KeyToUint64(const string& key) {
 // the string keys sort in the same order as the original double values.
 inline void KeyFromDouble(double d, string* key) {
   int64 n = *pun_cast<const int64*>(&d);
+  static const uint64 kSignMask = uint64(1) << 63;
   if (n >= 0) 
-    n ^= int64(-1) << 63;
+    n ^= static_cast<int64>(kSignMask);
   else
     n = -n;
   KeyFromUint64(n, key);
@@ -139,8 +140,9 @@ inline double KeyToDouble(const string& key) {
   // DCHECK_EQ(key.size(), sizeof(uint64));
   // DCHECK_EQ(key.size(), sizeof(double));
   int64 n = KeyToUint64(key);
-  if (n & (int64(-1) << 63))
-    n ^= int64(-1) << 63;
+  static const uint64 kSignMask = uint64(1) << 63;
+  if (static_cast<uint64>(n) & kSignMask)
+    n ^= static_cast<int64>(kSignMask);
   else
     n = -n;
   return *pun_cast<const double*>(&n);

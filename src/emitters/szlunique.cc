@@ -107,8 +107,8 @@ UniqueEstimator::Create(int maxElems) {
 
 inline UniqueEstimatorImpl::HashVal
 UniqueEstimatorImpl::PackUniqueHash(const uint8* mem) {
-  uint32 hhi = (mem[0] << 24) | (mem[1] << 16) | (mem[2] << 8) | mem[3];
-  uint32 hlo = (mem[4] << 24) | (mem[5] << 16) | (mem[6] << 8) | mem[7];
+  uint32 hhi = (static_cast<uint32>(mem[0]) << 24) | (static_cast<uint32>(mem[1]) << 16) | (static_cast<uint32>(mem[2]) << 8) | static_cast<uint32>(mem[3]);
+  uint32 hlo = (static_cast<uint32>(mem[4]) << 24) | (static_cast<uint32>(mem[5]) << 16) | (static_cast<uint32>(mem[6]) << 8) | static_cast<uint32>(mem[7]);
   uint64 h = hhi;
   return (h << 32) | hlo;
 }
