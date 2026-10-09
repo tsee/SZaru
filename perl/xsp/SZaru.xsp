@@ -48,21 +48,22 @@ class PTopEstimator {
   void add_weighted_elem(const std::string& elem, double weight);
   uint64_t tot_elems();
 
-  AV *
+  SV *
   estimate()
     %code{%
-      RETVAL = newAV();
-      sv_2mortal((SV *)RETVAL);
+      AV *av = newAV();
       std::vector< SZaru::TopEstimator<double>::Elem > v;
       THIS->estimate(v);
-      av_extend(RETVAL, v.size()-1);
+      if (!v.empty())
+        av_extend(av, v.size()-1);
       for (unsigned int i = 0; i < v.size(); ++i) {
         AV *iav = newAV();
         const std::string &str = v[i].value;
         av_store(iav, 0, newSVpvn(str.c_str(), str.length()));
         av_store(iav, 1, newSVnv(v[i].weight));
-        av_store(RETVAL, i, newRV_noinc((SV *)iav));
+        av_store(av, i, newRV_noinc((SV *)iav));
       }
+      RETVAL = newRV_noinc((SV *)av);
     %};
 
 // Pure XS implementation of multi-element add for performance
