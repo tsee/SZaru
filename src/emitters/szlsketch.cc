@@ -48,10 +48,12 @@ void SzlSketch<Value>::Dims(int totalSize, int* nTabs, int* tabSize) {
 
 template <typename Value>
 SzlSketch<Value>::SzlSketch(int nTabs, int tabSize)
-  : weights_(new Value[nTabs * tabSize]),
+  // The trailing "()" value-initialises the array: for the primitive Value
+  // types used here (int32_t, int64_t, double) "new Value[n]" would leave the
+  // weights uninitialised.
+  : weights_(new Value[static_cast<size_t>(nTabs) * static_cast<size_t>(tabSize)]()),
     nTabs_(nTabs),
     tabSize_(tabSize) {
-  // SzlValues's are clear by default, so we don't need to clear weights_
   
   // Check for valid nTabs, pow(2) tabSize;
   // CHECK(nTabs >= kMinTabs && nTabs <= kMaxTabs && (nTabs & 1) == 1);
